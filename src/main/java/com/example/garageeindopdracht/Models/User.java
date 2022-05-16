@@ -1,14 +1,11 @@
 package com.example.garageeindopdracht.Models;
 
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
+import com.example.garageeindopdracht.Security.Roles;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
-import java.util.Collection;
-import java.util.List;
 
 @Entity
 @Table(name="users")

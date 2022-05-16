@@ -1,10 +1,8 @@
 package com.example.garageeindopdracht.Controllers;
 
-import com.example.garageeindopdracht.Models.Job;
 import com.example.garageeindopdracht.Models.User;
 import com.example.garageeindopdracht.Services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;

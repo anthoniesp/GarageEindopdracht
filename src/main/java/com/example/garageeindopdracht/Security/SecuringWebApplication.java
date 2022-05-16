@@ -1,4 +1,4 @@
-package com.example.garageeindopdracht.securingweb;
+package com.example.garageeindopdracht.Security;
 
 import org.springframework.boot.SpringApplication;
 
