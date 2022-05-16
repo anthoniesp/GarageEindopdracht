@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Autogarage de Vastloper</title>
+
+    <link
+            href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+            rel="stylesheet"
+            integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+            crossorigin="anonymous"
+    >
+
+
+</head>
+<body>
+
+<div class = "container">
+    <h3>
+        Job List
+    </h3>
+    <hr/>
+
+    <a th:href="@{/Job/New}" class="btn btn-primary mb-2"> Add job </a>
+    <br>
+
+    <table class="table table-bordered table-striped" id="jobs">
+
+        <thead>
+        <tr>
+            <th> ID </th>
+            <th> License plate </th>
+            <th> Date </th>
+            <th> Customer name </th>
+            <th> Customer phone number </th>
+            <th> Job description </th>
+            <th> Actions </th>
+        </tr>
+        </thead>
+
+        <tbody>
+        <tr th:each = "job: ${jobs}">
+            <td th:text = "${job.getID()}"> </td>
+            <td th:text = "${job.getCarLicensePlate()}"> </td>
+            <td th:text = "${job.getDate()}"> </td>
+            <td th:text = "${job.getCustomerName()}"> </td>
+            <td th:text = "${job.getCustomerPhoneNumber()}"> </td>
+            <td th:text = "${job.getJobDescription()}"> </td>
+            <td>
+                <a th:href="@{/Job/{ID}/Edit(ID=${job.getID()})}" class="btn btn-success mb-2"> Edit </a>
+                <a th:href="@{/Job/{ID}/Delete(ID=${job.getID()})}" class="btn btn-danger mb-2"> Delete </a>
+            </td>
+        </tr>
+        </tbody>
+
+    </table>
+</div>
+
+</body>
+</html>

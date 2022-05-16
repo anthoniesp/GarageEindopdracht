@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Autogarage de Vastloper</title>
+
+    <link
+            href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+            rel="stylesheet"
+            integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+            crossorigin="anonymous"
+    >
+
+</head>
+<body>
+    <div class="container">
+        <h2> Create a new user </h2>
+        <hr/>
+        <form th:action="@{/SaveUser}" th:object="${User}" method="POST">
+
+            <input type="text" th:field="*{userName}" placeholder="Enter username" class="form-control col-4 mb-4" required/>
+            <br>
+
+            <input type="password" th:field="*{password}" placeholder="Enter password" class="form-control col-4 mb-4" required/>
+            <br>
+
+                    <div class="form-group">
+                        <label> Role type </label>
+                        <br>
+
+                        <input type="radio" id="ADMIN" name="role" th:field="*{role}" value="ADMIN" required="required">
+                        <label for="ADMIN"> Admin </label>
+                        <br>
+
+                        <input type="radio" id="MECHANIC" name="role" th:field="*{role}" value="MECHANIC">
+                        <label for="MECHANIC"> Mechanic </label>
+                        <br>
+
+                        <input type="radio" id="ADMINISTRATIVE_WORKER" name="role" th:field="*{role}" value="ADMINISTRATIVE_WORKER">
+                        <label for="ADMINISTRATIVE_WORKER"> Administrative worker </label>
+                        <br>
+
+                    </div>
+
+            <br>
+            <button class="btn btn-primary" type="submit"> Save </button>
+
+        </form>
+        <hr/>
+        <a th:href="@{/Jobs}"> Back to job overview </a>
+    </div>
+</body>
+</html>
