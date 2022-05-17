@@ -1,6 +1,7 @@
 package com.example.garageeindopdracht.Models;
 
-import com.example.garageeindopdracht.Security.Roles;
+import com.example.garageeindopdracht.Security.ApplicationUserRole;
+import org.springframework.context.annotation.Bean;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -9,7 +10,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name="users")
-public class User {
+public class ApplicationUser {
     @Id
     private long ID;
     @Column
@@ -17,15 +18,15 @@ public class User {
     @Column
     private String password;
     @Column
-    private Roles role;
+    private ApplicationUserRole role;
 
-    public User(String userName, String password, Roles role) {
+    public ApplicationUser(String userName, String password, ApplicationUserRole role) {
         this.userName = userName;
         this.password = password;
         this.role = role;
     }
 
-    public User() {
+    public ApplicationUser() {
 
     }
 
@@ -45,10 +46,9 @@ public class User {
         return userName;
     }
 
-    public Roles getRole() {
+    public ApplicationUserRole getRole() {
         return role;
     }
-
 
     public void setID(Long id) {
         this.ID = id;
@@ -62,7 +62,7 @@ public class User {
         this.password = password;
     }
 
-    public void setRole(Roles role) {
+    public void setRole(ApplicationUserRole role) {
         this.role = role;
     }
 }

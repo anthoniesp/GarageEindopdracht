@@ -1,7 +1,6 @@
 package com.example.garageeindopdracht.Services;
 
-import com.example.garageeindopdracht.Models.Job;
-import com.example.garageeindopdracht.Models.User;
+import com.example.garageeindopdracht.Models.ApplicationUser;
 import com.example.garageeindopdracht.Repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,17 +13,17 @@ public class UserService {
     @Autowired
     UserRepository userRepository;
 
-    public List<User> getAllUsers() {
-        List<User> userList;
+    public List<ApplicationUser> getAllUsers() {
+        List<ApplicationUser> userList;
         userList = userRepository.findAll();
         return userList;
     }
 
-    public User getUser(long ID) {
+    public ApplicationUser getUser(long ID) {
         return userRepository.findById(ID).orElse( null);
     }
 
-    public void newUser(User newUser) {
+    public void newUser(ApplicationUser newUser) {
 //        newJob.setID(ID);
         if (userRepository.findById(newUser.getID()).isPresent()) {
 //            jobRepository.findById(newJob.getID()).map(
@@ -43,7 +42,7 @@ public class UserService {
 
     // https://github.com/V-hofman/huiswerkspring1/blob/extra/huiswerkspring2/src/main/java/com/example/huiswerkspring1/services/AppService.java
     // Copy-pasted
-    public void editUser(User editedUser) {
+    public void editUser(ApplicationUser editedUser) {
         //Hier zeggen we stuur iets terug, namelijk zoek een author met een ID
         userRepository.findById(editedUser.getID())
                 //Kan je hem vinden? dan doen we een .map, dit overschrijft de author die we vonden
@@ -65,7 +64,7 @@ public class UserService {
     }
 
     public void deleteUser(long ID) {
-        User deletingUser = userRepository.findById(ID).orElse(null);
+        ApplicationUser deletingUser = userRepository.findById(ID).orElse(null);
         if (deletingUser != null) {
             userRepository.delete(deletingUser);
         }
