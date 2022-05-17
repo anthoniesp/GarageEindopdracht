@@ -1,12 +1,16 @@
 package com.example.garageeindopdracht.Repositories;
 
-import com.example.garageeindopdracht.Models.ApplicationUser;
+import com.example.garageeindopdracht.Models.User;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Repository;
 
-@Repository
-public interface UserRepository extends JpaRepository<ApplicationUser, Long> {
+import java.util.Optional;
 
-        User findByUsername(String username);
+@Repository
+public interface UserRepository extends JpaRepository<User, Long> {
+
+        Optional<User> findByUsername(String username);
+
+
+//        org.springframework.security.core.userdetails.User findByUsername(String username);
 }

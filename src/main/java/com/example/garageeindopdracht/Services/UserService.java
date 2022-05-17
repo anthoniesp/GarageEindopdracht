@@ -1,6 +1,6 @@
 package com.example.garageeindopdracht.Services;
 
-import com.example.garageeindopdracht.Models.ApplicationUser;
+import com.example.garageeindopdracht.Models.User;
 import com.example.garageeindopdracht.Repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -13,17 +13,17 @@ public class UserService {
     @Autowired
     UserRepository userRepository;
 
-    public List<ApplicationUser> getAllUsers() {
-        List<ApplicationUser> userList;
+    public List<User> getAllUsers() {
+        List<User> userList;
         userList = userRepository.findAll();
         return userList;
     }
 
-    public ApplicationUser getUser(long ID) {
+    public User getUser(long ID) {
         return userRepository.findById(ID).orElse( null);
     }
 
-    public void newUser(ApplicationUser newUser) {
+    public void newUser(User newUser) {
 //        newJob.setID(ID);
         if (userRepository.findById(newUser.getID()).isPresent()) {
 //            jobRepository.findById(newJob.getID()).map(
@@ -42,7 +42,7 @@ public class UserService {
 
     // https://github.com/V-hofman/huiswerkspring1/blob/extra/huiswerkspring2/src/main/java/com/example/huiswerkspring1/services/AppService.java
     // Copy-pasted
-    public void editUser(ApplicationUser editedUser) {
+    public void editUser(User editedUser) {
         //Hier zeggen we stuur iets terug, namelijk zoek een author met een ID
         userRepository.findById(editedUser.getID())
                 //Kan je hem vinden? dan doen we een .map, dit overschrijft de author die we vonden
@@ -52,7 +52,7 @@ public class UserService {
                             //TODO            job.setName(editedJob.getName());
                             //TODO            job.setMembershipLevel(editedJob.getMembershipLevel());
                             user.setID(editedUser.getID());
-                            user.setUserName(editedUser.getUserName());
+                            user.setUsername(editedUser.getUsername());
                             user.setPassword(editedUser.getPassword());
                             user.setRole(editedUser.getRole());
                             //Gegevens veranderd? dan slaan we hem op.
@@ -64,7 +64,7 @@ public class UserService {
     }
 
     public void deleteUser(long ID) {
-        ApplicationUser deletingUser = userRepository.findById(ID).orElse(null);
+        User deletingUser = userRepository.findById(ID).orElse(null);
         if (deletingUser != null) {
             userRepository.delete(deletingUser);
         }
