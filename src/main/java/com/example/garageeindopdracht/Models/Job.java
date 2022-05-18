@@ -1,9 +1,7 @@
 package com.example.garageeindopdracht.Models;
 
 import javax.persistence.*;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -11,9 +9,9 @@ import java.util.List;
 @Table(name = "jobsTable")
 public class Job {
     @Id
-    @SequenceGenerator(name = "job_sequence", sequenceName = "job_sequence", allocationSize = 1)
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "job_sequence")
-    private long ID;
+//    @SequenceGenerator(name = "job_sequence", sequenceName = "job_sequence", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private long jobID; //TODO pas deze shit aan in html meuk
     @Column
     private String carLicensePlate;
     @Column
@@ -83,8 +81,8 @@ public class Job {
 
     // Getters & Setters
 
-    public long getID() {
-        return ID;
+    public long getJobID() {
+        return jobID;
     }
 
     public String getCarLicensePlate() {
@@ -115,8 +113,8 @@ public class Job {
         return jobDescription;
     }
 
-    public void setID(long ID) {
-        this.ID = ID;
+    public void setJobID(long ID) {
+        this.jobID = ID;
     }
 
 //    public void setCar(Car car) {

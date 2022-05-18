@@ -3,6 +3,7 @@ package com.example.garageeindopdracht.Services;
 import com.example.garageeindopdracht.Models.User;
 import com.example.garageeindopdracht.Repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -12,6 +13,20 @@ public class UserService {
 
     @Autowired
     UserRepository userRepository;
+
+    @Autowired
+    BCryptPasswordEncoder bCryptPasswordEncoder;
+
+//    @Override
+//    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+//        User user = userRepository.findByUsername(username);
+//        if (user != null) {
+//            return (UserDetails)user;
+//        } else {
+//            throw new UsernameNotFoundException(username);
+//        }
+//
+//    }
 
     public List<User> getAllUsers() {
         List<User> userList;
@@ -24,18 +39,19 @@ public class UserService {
     }
 
     public void newUser(User newUser) {
-//        newJob.setID(ID);
-        if (userRepository.findById(newUser.getID()).isPresent()) {
-//            jobRepository.findById(newJob.getID()).map(
-//                    job -> {
-//                        job.setCarLicensePlate(newJob.getCarLicensePlate());
-//                        job.setCustomerName(newJob.getCustomerName());
-//                        job.setCustomerPhoneNumber(newJob.getCustomerPhoneNumber());
-//                        job.setJobDescription(newJob.getJobDescription());
-//                    }
-//            )
+        if (userRepository.findById(newUser.getUserID()).isPresent()) {
+            throw new RuntimeException("User does already exist");
 
         } else {
+//            userRepository.findById(newUser.getUserID()).map(
+//                    user -> {
+//                        user.setUserName(newUser.getUserName());
+//                        user.setPassword(bCryptPasswordEncoder.encode(newUser.getPassword()));
+//                        user.setApplicationUserRole(newUser.getApplicationUserRole());
+//
+//                        return userRepository.save(user);
+//                    });
+            newUser.setPassword(bCryptPasswordEncoder.encode(newUser.getPassword()));
             userRepository.save(newUser);
         }
     }
@@ -44,21 +60,21 @@ public class UserService {
     // Copy-pasted
     public void editUser(User editedUser) {
         //Hier zeggen we stuur iets terug, namelijk zoek een author met een ID
-        userRepository.findById(editedUser.getID())
+        userRepository.findById(editedUser.getUserID())
                 //Kan je hem vinden? dan doen we een .map, dit overschrijft de author die we vonden
                 .map(
                         user -> { //Voor een functie body { } uit en ik verwacht een author terug.
                             //setters van de author die is opgeslagen, die nu de waarde krijgen van de BODY die we in het PUT hadden geplaatst.
                             //TODO            job.setName(editedJob.getName());
                             //TODO            job.setMembershipLevel(editedJob.getMembershipLevel());
-                            user.setID(editedUser.getID());
-                            user.setUsername(editedUser.getUsername());
+                            user.setUserID(editedUser.getUserID());
+                            user.setUserName(editedUser.getUserName());
                             user.setPassword(editedUser.getPassword());
-                            user.setRole(editedUser.getRole());
+                            user.setApplicationUserRole(editedUser.getApplicationUserRole());
                             //Gegevens veranderd? dan slaan we hem op.
                             return userRepository.save(user);
                         }).orElseGet(() -> { //Kan je hem niet vinden? Dan slaan we in dit geval gewoon een nieuwe op.
-                    editedUser.setID(editedUser.getID());
+                    editedUser.setUserID(editedUser.getUserID());
                     return userRepository.save(editedUser);
                 });
     }

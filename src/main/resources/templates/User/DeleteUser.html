@@ -15,39 +15,38 @@
 <body>
 
     <div class = "container">
-        <h3>
-            User List
-        </h3>
-        <hr/>
+        <h3> Delete user </h3>
+        <hr>
 
-        <a th:href="@{/User/New}" class="btn btn-primary mb-2"> Add user </a>
-        <br>
-
-        <table class="table table-bordered table-striped" id="users">
+        <table class="table table-bordered table-striped" id="job">
 
             <thead>
             <tr>
                 <th> ID </th>
                 <th> Username </th>
                 <th> Role </th>
-                <th> Actions </th>
 
             </tr>
             </thead>
 
             <tbody>
-            <tr th:each = "user: ${users}">
+            <tr >
                 <td th:text = "${user.getUserID()}"> </td>
                 <td th:text = "${user.getUserName()}"> </td>
                 <td th:text = "${user.getApplicationUserRole()}"> </td>
-                <td>
-                    <a th:href="@{/User/{ID}/Edit(ID=${user.getUserID()})}" class="btn btn-success mb-2"> Edit </a>
-                    <a th:href="@{/User/{ID}/Delete(ID=${user.getUserID()})}" class="btn btn-danger mb-2"> Delete </a>
-                </td>
             </tr>
             </tbody>
-
         </table>
+
+        <br> <br>
+
+        <form th:action="@{/User/{ID}/Deleted(ID=${user.getUserID()})}" method="POST">
+            <input type="checkbox" required>
+            <label> I want to delete this user </label>
+            <br>
+
+            <input class="btn btn-danger" type="submit" value="Delete">
+        </form>
     </div>
 
 </body>

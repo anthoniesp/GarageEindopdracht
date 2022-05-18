@@ -20,7 +20,7 @@ public class JobController {
     public String getAllJobs(Model model) {
         List<Job> jobList = jobService.getAllJobs();
         model.addAttribute("jobs", jobList);
-        return "Jobs"; // "Jobs" verwijst naar Jobs.html
+        return "Job/Jobs"; // "Jobs" verwijst naar Jobs.html
     }
 
     // Vraag een specifieke job op -zonder webinterface
@@ -34,7 +34,7 @@ public class JobController {
     public String createJob(Model model) {
         Job newJob = new Job();
         model.addAttribute("Job", newJob);
-        return "CreateJob";
+        return "Job/CreateJob";
     }
 
     // Get methode voor de web-interface van de Edit methode
@@ -42,14 +42,14 @@ public class JobController {
     public String editJob(@PathVariable Long ID, Model model) {
         Job existingJob = jobService.getJob(ID);
         model.addAttribute("Job", existingJob);
-        return "editJob";
+        return "Job/EditJob";
     }
 
     // Sla aangemaakte job op in de database
     @PostMapping("/SaveJob")
     public String saveJob(@ModelAttribute("Job") Job newJob) {
         jobService.newJob(newJob);
-        return "SaveJob";
+        return "Job/SaveJob";
     }
 
     // Pas een bestaande job aan
@@ -57,7 +57,7 @@ public class JobController {
     public String editJobFinished(@ModelAttribute("Job") Job editedJob) {
         // Onderstaande methode checkt of de job al bestaat, zo niet, dan maakt die een nieuwe aan
         jobService.editJob(editedJob);
-        return "EditJobFinished";
+        return "Job/EditJobFinished";
     }
 
     // Get methode om een job te verwijderen
@@ -65,14 +65,14 @@ public class JobController {
     public String deleteJob(@PathVariable Long ID, Model model) {
         Job deletingJob = jobService.getJob(ID);
         model.addAttribute("job", deletingJob);
-        return "DeleteJob";
+        return "Job/DeleteJob";
     }
 
     // Verwijder een job
     @PostMapping("/Job/{ID}/Deleted")
     private String deleteJobFinished(@PathVariable long ID){
         jobService.deleteJob(ID);
-        return "DeleteJobFinished";
+        return "Job/DeleteJobFinished";
     }
 
 

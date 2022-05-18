@@ -1,73 +1,117 @@
 package com.example.garageeindopdracht.Models;
 
 import com.example.garageeindopdracht.Security.ApplicationUserRole;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.NoArgsConstructor;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
+import java.util.Collection;
+import java.util.Collections;
 
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
 @Entity
 @Table(name="users")
-public class User {
+public class User implements UserDetails {
     @Id
-    private long ID;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private long userID;
     @Column
-    private String username;
+    private String userName;
     @Column
     private String password;
     @Column
-    private ApplicationUserRole role;
+    @Enumerated()
+    private ApplicationUserRole applicationUserRole;
+
     private boolean isActive;
 
-    public User(String userName, String password, ApplicationUserRole role) {
-        this.username = userName;
+    public User(String userName, String password, ApplicationUserRole applicationUserRole) {
+        this.userName = userName;
         this.password = password;
-        this.role = role;
-        this.isActive = true;
+        this.applicationUserRole = applicationUserRole;
     }
 
-    public User() {
 
+    public Long getUserID() {
+        return userID;
     }
 
-    public Long getID() {
-        return ID;
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        SimpleGrantedAuthority authority = new SimpleGrantedAuthority(this.applicationUserRole.name());
+        return Collections.singletonList(authority);
     }
 
     public String getPassword() {
         return password;
     }
 
+    @Override
     public String getUsername() {
-        return username;
+        return userName;
     }
 
-    public ApplicationUserRole getRole() {
-        return role;
+    public String getUserName() {
+        return userName;
+    }
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return true;
+    }
+
+    public ApplicationUserRole getApplicationUserRole() {
+        return applicationUserRole;
     }
 
     public boolean isActive() {
         return isActive;
     }
 
-    public void setID(Long id) {
-        this.ID = id;
+    public void setUserID(Long id) {
+        this.userID = id;
     }
 
-    public void setUsername(String userName) {
-        this.username = userName;
+    public void setUserName(String userName) {
+        this.userName = userName;
     }
 
     public void setPassword(String password) {
         this.password = password;
     }
 
-    public void setRole(ApplicationUserRole role) {
-        this.role = role;
+    public void setApplicationUserRole(ApplicationUserRole role) {
+        this.applicationUserRole = role;
     }
+
+
 
     public int[] getRoles() {
         return null; //TODO
+    }
+
+    public void setActive(boolean active) {
+        isActive = active;
     }
 }

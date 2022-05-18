@@ -25,7 +25,7 @@ public class JobService {
 
     public void newJob(Job newJob) {
 //        newJob.setID(ID);
-        if (jobRepository.findById(newJob.getID()).isPresent()) {
+        if (jobRepository.findById(newJob.getJobID()).isPresent()) {
 //            jobRepository.findById(newJob.getID()).map(
 //                    job -> {
 //                        job.setCarLicensePlate(newJob.getCarLicensePlate());
@@ -44,7 +44,7 @@ public class JobService {
     // Copy-pasted
     public void editJob(Job editedJob) {
         //Hier zeggen we stuur iets terug, namelijk zoek een author met een ID
-        jobRepository.findById(editedJob.getID())
+        jobRepository.findById(editedJob.getJobID())
                 //Kan je hem vinden? dan doen we een .map, dit overschrijft de author die we vonden
                 .map(
                         job -> { //Voor een functie body { } uit en ik verwacht een author terug.
@@ -54,7 +54,7 @@ public class JobService {
                             //Gegevens veranderd? dan slaan we hem op.
                             return jobRepository.save(job);
                         }).orElseGet(() -> { //Kan je hem niet vinden? Dan slaan we in dit geval gewoon een nieuwe op.
-                    editedJob.setID(editedJob.getID());
+                    editedJob.setJobID(editedJob.getJobID());
                     return jobRepository.save(editedJob);
                 });
     }
