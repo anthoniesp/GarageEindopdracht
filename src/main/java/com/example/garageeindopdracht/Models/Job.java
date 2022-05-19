@@ -1,5 +1,7 @@
 package com.example.garageeindopdracht.Models;
 
+import lombok.Builder;
+
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.Date;
