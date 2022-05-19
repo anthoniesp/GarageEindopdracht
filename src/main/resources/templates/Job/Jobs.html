@@ -21,6 +21,9 @@
     </h3>
     <hr/>
 
+    <a th:href="@{/Administration}" class="btn btn-secondary mb-2"> Back to job management </a>
+    <br>
+
     <a th:href="@{/Job/New}" class="btn btn-primary mb-2"> Add job </a>
     <br>
 
@@ -30,25 +33,26 @@
         <tr>
             <th> ID </th>
             <th> License plate </th>
-            <th> Date </th>
             <th> Customer name </th>
             <th> Customer phone number </th>
             <th> Job description </th>
+            <th> Status </th>
             <th> Actions </th>
         </tr>
         </thead>
 
         <tbody>
         <tr th:each = "job: ${jobs}">
-            <td th:text = "${job.getID()}"> </td>
+            <td th:text = "${job.getJobID()}"> </td>
             <td th:text = "${job.getCarLicensePlate()}"> </td>
-            <td th:text = "${job.getDate()}"> </td>
             <td th:text = "${job.getCustomerName()}"> </td>
             <td th:text = "${job.getCustomerPhoneNumber()}"> </td>
             <td th:text = "${job.getJobDescription()}"> </td>
+            <td th:text = "${job.getStatusToString()}"> </td>
+
             <td>
-                <a th:href="@{/Job/{ID}/Edit(ID=${job.getID()})}" class="btn btn-success mb-2"> Edit </a>
-                <a th:href="@{/Job/{ID}/Delete(ID=${job.getID()})}" class="btn btn-danger mb-2"> Delete </a>
+                <a th:href="@{/Job/{ID}/Edit(ID=${job.getJobID()})}" class="btn btn-success mb-2"> Edit </a>
+                <a th:href="@{/Job/{ID}/Delete(ID=${job.getJobID()})}" class="btn btn-danger mb-2"> Delete </a>
             </td>
         </tr>
         </tbody>

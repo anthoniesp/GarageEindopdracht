@@ -29,7 +29,6 @@ public class User implements UserDetails {
     @Enumerated()
     private ApplicationUserRole applicationUserRole;
 
-    private boolean isActive;
 
     public User(String userName, String password, ApplicationUserRole applicationUserRole) {
         this.userName = userName;
@@ -85,9 +84,7 @@ public class User implements UserDetails {
         return applicationUserRole;
     }
 
-    public boolean isActive() {
-        return isActive;
-    }
+
 
     public void setUserID(Long id) {
         this.userID = id;
@@ -111,7 +108,4 @@ public class User implements UserDetails {
         return null; //TODO
     }
 
-    public void setActive(boolean active) {
-        isActive = active;
-    }
 }

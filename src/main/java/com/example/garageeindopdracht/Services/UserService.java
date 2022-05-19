@@ -17,16 +17,6 @@ public class UserService {
     @Autowired
     BCryptPasswordEncoder bCryptPasswordEncoder;
 
-//    @Override
-//    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-//        User user = userRepository.findByUsername(username);
-//        if (user != null) {
-//            return (UserDetails)user;
-//        } else {
-//            throw new UsernameNotFoundException(username);
-//        }
-//
-//    }
 
     public List<User> getAllUsers() {
         List<User> userList;
@@ -65,17 +55,10 @@ public class UserService {
                 .map(
                         user -> { //Voor een functie body { } uit en ik verwacht een author terug.
                             //setters van de author die is opgeslagen, die nu de waarde krijgen van de BODY die we in het PUT hadden geplaatst.
-                            //TODO            job.setName(editedJob.getName());
-                            //TODO            job.setMembershipLevel(editedJob.getMembershipLevel());
                             user.setUserID(editedUser.getUserID());
-                            user.setUserName(editedUser.getUserName());
-                            user.setPassword(editedUser.getPassword());
                             user.setApplicationUserRole(editedUser.getApplicationUserRole());
                             //Gegevens veranderd? dan slaan we hem op.
                             return userRepository.save(user);
-                        }).orElseGet(() -> { //Kan je hem niet vinden? Dan slaan we in dit geval gewoon een nieuwe op.
-                    editedUser.setUserID(editedUser.getUserID());
-                    return userRepository.save(editedUser);
                 });
     }
 

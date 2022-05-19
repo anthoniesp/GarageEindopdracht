@@ -10,9 +10,7 @@ import org.springframework.context.annotation.Configuration;
 //import org.springframework.security.core.userdetails.User;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
-/**
- * Class runs before actual program starts and loads database with an admin user and a customer user.
- */
+// Deze class wordt uitgevoerd zodra het programma start, als er dan nog geen admin gebruiker in de database staat, wordt deze aangemaakt
 @Configuration
 @AllArgsConstructor
 public class CommandLineAppStartupRunner {
@@ -21,14 +19,29 @@ public class CommandLineAppStartupRunner {
     @Bean
     CommandLineRunner commandLineRunner(UserRepository userRepository){
         return args -> {
-            if(userRepository.findByApplicationUserRole(ApplicationUserRole.ADMIN).isEmpty()) {
+
+            if(userRepository.findAll().isEmpty()) {
                 User admin = User.builder()
-                        .userName("Admin")
-                        .password(bCryptPasswordEncoder.encode("VeryGoodPassword"))
+                        .userName("admin")
+                        .password(bCryptPasswordEncoder.encode("admin"))
                         .applicationUserRole(ApplicationUserRole.ADMIN)
                         .build();
 
-                    userRepository.save(admin);
+                User adwork = User.builder()
+                        .userName("adwork")
+                        .password(bCryptPasswordEncoder.encode("adwork"))
+                        .applicationUserRole(ApplicationUserRole.ADMINISTRATIVE_WORKER)
+                        .build();
+
+                User mech = User.builder()
+                        .userName("mech")
+                        .password(bCryptPasswordEncoder.encode("mech"))
+                        .applicationUserRole(ApplicationUserRole.MECHANIC)
+                        .build();
+
+                userRepository.save(admin);
+                userRepository.save(adwork);
+                userRepository.save(mech);
             }
         };
     }

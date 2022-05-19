@@ -3,6 +3,8 @@ package com.example.garageeindopdracht.Controllers;
 import com.example.garageeindopdracht.Models.Job;
 import com.example.garageeindopdracht.Services.JobService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -46,7 +48,7 @@ public class JobController {
     }
 
     // Sla aangemaakte job op in de database
-    @PostMapping("/SaveJob")
+    @PostMapping("/Job/SaveJob")
     public String saveJob(@ModelAttribute("Job") Job newJob) {
         jobService.newJob(newJob);
         return "Job/SaveJob";
@@ -54,7 +56,8 @@ public class JobController {
 
     // Pas een bestaande job aan
     @PostMapping("/Job/{ID}")
-    public String editJobFinished(@ModelAttribute("Job") Job editedJob) {
+    public String editJobFinished(@ModelAttribute("Job") Job editedJob, @PathVariable("ID") long ID) {
+        editedJob.setJobID(ID);
         // Onderstaande methode checkt of de job al bestaat, zo niet, dan maakt die een nieuwe aan
         jobService.editJob(editedJob);
         return "Job/EditJobFinished";

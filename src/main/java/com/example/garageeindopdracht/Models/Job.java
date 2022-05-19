@@ -9,13 +9,12 @@ import java.util.List;
 @Table(name = "jobsTable")
 public class Job {
     @Id
-//    @SequenceGenerator(name = "job_sequence", sequenceName = "job_sequence", allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long jobID; //TODO pas deze shit aan in html meuk
+    private long jobID;
     @Column
     private String carLicensePlate;
     @Column
-    private String date;  // TODO Date geeft altijd null ?????
+    private int status;
     @Column
     private String customerName;
     @Column
@@ -27,12 +26,12 @@ public class Job {
     @Column
     private String partsUsedForRepairPrices;
 
-    public Job(String carLicensePlate, String customerName, String customerPhoneNumber, String jobDescription) {
+    public Job(String carLicensePlate, String customerName, String customerPhoneNumber, String jobDescription, int status) {
         this.carLicensePlate = carLicensePlate;
         this.customerName = customerName;
         this.customerPhoneNumber = customerPhoneNumber;
         this.jobDescription = jobDescription;
-        this.date = createDateAsString();
+        this.status = status;
 
     }
 
@@ -89,8 +88,21 @@ public class Job {
         return carLicensePlate;
     }
 
-    public String getDate() {
-        return date;
+    public String getStatusToString() {
+        switch (status) {
+            case 0:
+                return "Not active";
+            case 1:
+                return "Active";
+            case 2:
+                return "Finished";
+            default:
+                return "Status not found";
+        }
+    }
+
+    public int getStatus() {
+        return status;
     }
 
     public String getCustomerName() {
@@ -140,6 +152,10 @@ public class Job {
     public String createDateAsString() {
         Date date = new Date();
         return String.valueOf(date.getDate()) + String.valueOf(date.getMonth() + String.valueOf(date.getYear()));
+    }
+
+    public void setStatus(int status) {
+        this.status = status;
     }
 }
 

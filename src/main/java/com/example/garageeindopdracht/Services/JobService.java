@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class JobService {
@@ -16,6 +17,13 @@ public class JobService {
     public List<Job> getAllJobs() {
         List<Job> jobList;
         jobList = jobRepository.findAll();
+        return jobList;
+    }
+
+    public List<Job> getAllActiveJobs() {
+        List<Job> jobList;
+        int status = 1; // Status 1 staat voor active
+        jobList = jobRepository.findByStatus(status);
         return jobList;
     }
 
@@ -49,15 +57,17 @@ public class JobService {
                 .map(
                         job -> { //Voor een functie body { } uit en ik verwacht een author terug.
                             //setters van de author die is opgeslagen, die nu de waarde krijgen van de BODY die we in het PUT hadden geplaatst.
-                //TODO            job.setName(editedJob.getName());
-                //TODO            job.setMembershipLevel(editedJob.getMembershipLevel());
+                            job.setJobID(editedJob.getJobID());
+                            job.setCarLicensePlate(editedJob.getCarLicensePlate());
+                            job.setCustomerName(editedJob.getCustomerName());
+                            job.setCustomerPhoneNumber(editedJob.getCustomerPhoneNumber());
+                            job.setJobDescription(editedJob.getJobDescription());
+                            job.setStatus(editedJob.getStatus());
                             //Gegevens veranderd? dan slaan we hem op.
                             return jobRepository.save(job);
-                        }).orElseGet(() -> { //Kan je hem niet vinden? Dan slaan we in dit geval gewoon een nieuwe op.
-                    editedJob.setJobID(editedJob.getJobID());
-                    return jobRepository.save(editedJob);
-                });
+                        });
     }
+
 
     public void deleteJob(long ID) {
         Job deletingJob = jobRepository.findById(ID).orElse(null);

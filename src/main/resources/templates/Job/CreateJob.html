@@ -17,7 +17,7 @@
 <div class="container">
     <h2> Create a new job </h2>
     <hr/>
-    <form th:action="@{/SaveJob}" th:object="${Job}" method="POST">
+    <form th:action="@{/Job/SaveJob}" th:object="${Job}" method="POST">
 
         <input type="text" th:maxlength="8" th:field="*{carLicensePlate}" placeholder="Enter license plate" class="form-control col-4 mb-4" required/>
         <br>
@@ -30,27 +30,22 @@
 
         <input type="text" th:field="*{jobDescription}" placeholder="Enter job description" class="form-control col-4 mb-4" required/>
         <br>
+        <br>
 
-<!--        <div class="form-group">-->
-<!--            <label> Membership type </label>-->
-<!--            <br>-->
+        <div class="form-group">
+            <label> Status </label>
+            <br>
 
-<!--            <input type="radio" id="NO_MEMBER" name="memberType" th:field="*{membershipLevel}" value="NO_MEMBER" required="required">-->
-<!--            <label for="NO_MEMBER"> No membership </label>-->
-<!--            <br>-->
+            <input type="radio" id="Not_active" name="status" th:field="*{status}" value=0 required="required">
+            <label for="Not_active"> Not active </label>
+            <br>
 
-<!--            <input type="radio" id="SILVER" name="memberType" th:field="*{membershipLevel}" value="SILVER">-->
-<!--            <label for="SILVER"> Silver membership </label>-->
-<!--            <br>-->
+            <input type="radio" id="Active" name="status" th:field="*{status}" value=1>
+            <label for="Active"> Active </label>
+            <br>
 
-<!--            <input type="radio" id="GOLD" name="memberType" th:field="*{membershipLevel}" value="GOLD">-->
-<!--            <label for="GOLD"> Gold membership </label>-->
-<!--            <br>-->
+        </div>
 
-<!--            <input type="radio" id="PLATINUM" name="memberType" th:field="*{membershipLevel}" value="PLATINUM">-->
-<!--            <label for="PLATINUM"> Platinum membership </label>-->
-<!--            <br>-->
-<!--        </div>-->
 
         <br>
         <button class="btn btn-primary" type="submit"> Save </button>

@@ -17,26 +17,32 @@
     <div class="container">
         <h2> Edit user </h2>
         <hr/>
-        <form th:action="@{/User/{ID}(ID=${user.getUserID()})}" th:object="${User}" method="POST">
+        <form th:action="@{/User/{ID}(ID=${User.getUserID()})}" th:object="${User}" method="POST">
 
-            <input type="text" th:field="*{UserName}" placeholder="Enter license plate" class="form-control col-4 mb-4" required/>
-            <br>
+            <div class="form-group">
+                <label> Role type </label>
+                <br>
 
-            <input type="text" th:field="*{customerName}" placeholder="Enter customer name" class="form-control col-4 mb-4" required/>
-            <br>
+                <input type="radio" id="ADMIN" name="role" th:field="*{applicationUserRole}" value="ADMIN" required="required">
+                <label for="ADMIN"> Admin </label>
+                <br>
 
-            <input type="text" th:maxlength="10" th:field="*{customerPhoneNumber}" placeholder="Enter customer phone number" class="form-control col-4 mb-4" required/>
-            <br>
+                <input type="radio" id="MECHANIC" name="role" th:field="*{applicationUserRole}" value="MECHANIC">
+                <label for="MECHANIC"> Mechanic </label>
+                <br>
 
-            <input type="text" th:field="*{jobDescription}" placeholder="Enter job description" class="form-control col-4 mb-4" required/>
-            <br>
+                <input type="radio" id="ADMINISTRATIVE_WORKER" name="role" th:field="*{applicationUserRole}" value="ADMINISTRATIVE_WORKER">
+                <label for="ADMINISTRATIVE_WORKER"> Administrative worker </label>
+                <br>
+
+            </div>
 
             <br>
             <button class="btn btn-primary" type="submit"> Save </button>
 
         </form>
         <hr/>
-        <a th:href="@{/Jobs}"> Back to job list </a>
+        <a th:href="@{/Users}"> Back to user overview </a>
     </div>
 
 </body>

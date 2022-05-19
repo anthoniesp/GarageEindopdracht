@@ -18,16 +18,7 @@ public class MyUserDetails implements UserDetails {
     private String username;
     private String password;
     private GrantedAuthority authorities;
-    private boolean isActive;
 
-//    public MyUserDetails(User user) {
-//        this.username = user.getUsername();
-//        this.password = user.getPassword();
-//        this.isActive = user.isActive();
-//        this.authorities = Arrays.stream(user.getRoles())
-//                .map(SimpleGrantedAuthority::new)
-//                .collect(Collectors.toList());
-//    }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

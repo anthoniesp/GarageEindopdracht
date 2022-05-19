@@ -26,12 +26,12 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .csrf().disable()
                 .authorizeRequests()
                     .antMatchers("/").permitAll()
-                    .antMatchers("/Users").permitAll() // TODO Authorities toevoegen
-                    .antMatchers("/CreateUser").hasAuthority("ROLE_ADMIN")
+                    .antMatchers("/Admin", "/Users", "/User/*").hasAuthority(ApplicationUserRole.ADMIN.name())
+                    .antMatchers("/Administration", "/Job/*", "/Jobs").hasAuthority(ApplicationUserRole.ADMINISTRATIVE_WORKER.name())
+                    .antMatchers("/Mechanic/*").hasAuthority(ApplicationUserRole.MECHANIC.name())
                     .anyRequest().authenticated()
                     .and()
                 .formLogin()
-//                    .loginPage("/login")
                     .permitAll()
                     .and()
                 .logout()
@@ -51,9 +51,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         auth.authenticationProvider(daoAuthenticationProvider());
     }
 
-    /**
-     * Bean initiates password encoding.
-     */
+    // Initialiseert password encryptie
     @Bean
     public DaoAuthenticationProvider daoAuthenticationProvider() {
         DaoAuthenticationProvider provider = new DaoAuthenticationProvider();
@@ -62,23 +60,4 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         return provider;
     }
 
-//    @Bean
-//    @Override
-//    public UserDetailsService userDetailsService() {
-//
-//        // Hardcoded ADMIN_ROLE gebruiker
-//        UserDetails user =
-//                User.withDefaultPasswordEncoder()
-//                        .username("admin")
-//                        .password("admin")
-//                        .roles("ADMIN") // Voegt automatisch ROLE_ toe
-//                        .build();
-//
-//        return new InMemoryUserDetailsManager(user);
-//    }
-
-//    @Bean
-//    public BCryptPasswordEncoder getPasswordEncoder() {
-//        return new BCryptPasswordEncoder();
-//    }
 }

@@ -16,18 +16,19 @@
 
     <div class = "container">
 
-        <h3> Autogarage de Vastloper </h3>
+        <h3> User management </h3>
         <hr>
         <br>
 
-        <a th:href="@{/Admin}" class="btn btn-primary mb-2"> Admin </a>
+        <a th:href="@{/Users}" class="btn btn-primary mb-2"> User overview </a>
         <br>
 
-        <a th:href="@{/Administration}" class="btn btn-primary mb-2"> Administration </a>
+        <a th:href="@{/User/New}" class="btn btn-primary mb-2"> Create a new user </a>
         <br>
 
-        <a th:href="@{/Mechanic}" class="btn btn-primary mb-2"> Mechanic </a>
-        <br>
+        <form th:action="@{/logout}" method="post">
+            <input type="submit" value="Sign Out"/>
+        </form>
 
     </div>
 

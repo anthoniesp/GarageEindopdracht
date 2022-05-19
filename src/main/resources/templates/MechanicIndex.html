@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <title>Autogarage de Vastloper</title>
 
+
     <link
             href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
             rel="stylesheet"
@@ -16,18 +17,16 @@
 
     <div class = "container">
 
-        <h3> Autogarage de Vastloper </h3>
+        <h3> Mechanic portal </h3>
         <hr>
         <br>
 
-        <a th:href="@{/Admin}" class="btn btn-primary mb-2"> Admin </a>
+        <a th:href="@{/Mechanic/ActiveJobs}" class="btn btn-primary mb-2"> Active jobs overview </a>
         <br>
 
-        <a th:href="@{/Administration}" class="btn btn-primary mb-2"> Administration </a>
-        <br>
-
-        <a th:href="@{/Mechanic}" class="btn btn-primary mb-2"> Mechanic </a>
-        <br>
+        <form th:action="@{/logout}" method="post">
+            <input type="submit" value="Sign Out"/>
+        </form>
 
     </div>
 

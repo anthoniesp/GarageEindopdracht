@@ -11,47 +11,46 @@
             crossorigin="anonymous"
     >
 
+
 </head>
 <body>
 
     <div class = "container">
-        <h3> Delete job </h3>
-        <hr>
+        <h3>
+            Active job List
+        </h3>
+        <hr/>
 
-        <table class="table table-bordered table-striped" id="job">
+        <a th:href="@{/Mechanic}" class="btn btn-secondary mb-2"> Back to mechanic portal </a>
+        <br>
+
+
+        <table class="table table-bordered table-striped" id="jobs">
 
             <thead>
             <tr>
                 <th> ID </th>
                 <th> License plate </th>
-                <th> Customer name </th>
-                <th> Customer phone number </th>
                 <th> Job description </th>
                 <th> Status </th>
+                <th> Actions </th>
             </tr>
             </thead>
 
             <tbody>
-            <tr >
+            <tr th:each = "job: ${jobs}">
                 <td th:text = "${job.getJobID()}"> </td>
                 <td th:text = "${job.getCarLicensePlate()}"> </td>
-                <td th:text = "${job.getCustomerName()}"> </td>
-                <td th:text = "${job.getCustomerPhoneNumber()}"> </td>
                 <td th:text = "${job.getJobDescription()}"> </td>
                 <td th:text = "${job.getStatusToString()}"> </td>
+
+                <td>
+                    <a th:href="@{/Mechanic/ActiveJob/{ID}/Edit(ID=${job.getJobID()})}" class="btn btn-success mb-2"> Edit </a>
+                </td>
             </tr>
             </tbody>
+
         </table>
-
-        <br> <br>
-
-        <form th:action="@{/Job/{ID}/Deleted(ID=${job.getJobID()})}" method="POST">
-            <input type="checkbox" required>
-            <label> I want to delete this job </label>
-            <br>
-
-            <input class="btn btn-danger" type="submit" value="Delete">
-        </form>
     </div>
 
 </body>

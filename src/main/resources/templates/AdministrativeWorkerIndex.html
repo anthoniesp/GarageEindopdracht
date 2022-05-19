@@ -14,22 +14,23 @@
 </head>
 <body>
 
-    <div class = "container">
+<div class = "container">
 
-        <h3> Autogarage de Vastloper </h3>
-        <hr>
-        <br>
+    <h3> Job management </h3>
+    <hr>
+    <br>
 
-        <a th:href="@{/Admin}" class="btn btn-primary mb-2"> Admin </a>
-        <br>
+    <a th:href="@{/Jobs}" class="btn btn-primary mb-2"> Job overview </a>
+    <br>
 
-        <a th:href="@{/Administration}" class="btn btn-primary mb-2"> Administration </a>
-        <br>
+    <a th:href="@{/Job/New}" class="btn btn-primary mb-2"> Create a new job </a>
+    <br>
 
-        <a th:href="@{/Mechanic}" class="btn btn-primary mb-2"> Mechanic </a>
-        <br>
+    <form th:action="@{/logout}" method="post">
+        <input type="submit" value="Sign Out"/>
+    </form>
 
-    </div>
+</div>
 
 </body>
 </html>
