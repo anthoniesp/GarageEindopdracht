@@ -38,45 +38,42 @@ public class Job {
     }
 
     public Job() {
-
     }
+
 
     // Voegt een part toe aan de String
-    public void addPartToString(Part newPart) {
-        partsUsedForRepair = partsUsedForRepair + newPart.getName() + ",";
+    public void addPartToString(String newPart) {
+        partsUsedForRepair = partsUsedForRepair + ";" + newPart;
     }
 
+    // TODO
     // Voegt een prijs toe aan de String
-    public void addPartPriceToString(Part newPart) {
-        partsUsedForRepairPrices = partsUsedForRepairPrices + newPart.getPrice() + ",";
+    public void addPartPriceToString(String newPartPrice) {
+        partsUsedForRepairPrices = partsUsedForRepairPrices + ";" + newPartPrice;
     }
 
-
+    // TODO
     // Maakt een list aan van parts aan van de twee Strings
-    public List<Part> getPartsList() {
-        List<Part> partsList = null;
-        if (partsUsedForRepair != null) {
-            for (String partName :partsUsedForRepair.split(",")) {
-                int counter = 0;    // De counter houdt bij welke integer het programma moet hebben van de Arraylist
-                ArrayList<Integer> partPrices = getPartPricesArray();
-                Part part = new Part(partName, partPrices.get(counter));
-                partsList.add(part);
-            }
-        } else {
-            Part noParts = new Part("No parts were used", 0);
-            partsList.add(noParts);
+    public List<String> getPartsList() {
+        List<String> partsList = null;
+        String[] partsInArray = partsUsedForRepair.split(";");
+        for (String part : partsInArray) {
+            partsList.add(part);
         }
         return partsList;
     }
 
+    // TODO
     // Zet de string prijslijst om naar een Arraylist zodat deze uitgelezen kan worden in de getPartsList() methode
-    public ArrayList<Integer> getPartPricesArray() {
-        ArrayList<Integer> priceList = null;
-        for (String price : partsUsedForRepairPrices.split(",")) {
-            priceList.add(Integer.parseInt(price));
+    public List<String> getPartPricesList() {
+        List<String> partsPricesList = null;
+        String[] partsPricesInArray = partsUsedForRepairPrices.split(";");
+        for (String partPrice : partsPricesInArray) {
+            partsPricesList.add(partPrice);
         }
-        return priceList;
+        return partsPricesList;
     }
+
 
 
 
@@ -130,10 +127,6 @@ public class Job {
     public void setJobID(long ID) {
         this.jobID = ID;
     }
-
-//    public void setCar(Car car) {
-//        this.car = car;
-//    }
 
     public void setCustomerName(String customerName) {
         this.customerName = customerName;

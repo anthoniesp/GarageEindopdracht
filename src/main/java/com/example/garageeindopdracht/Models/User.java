@@ -103,9 +103,4 @@ public class User implements UserDetails {
     }
 
 
-
-    public int[] getRoles() {
-        return null; //TODO
-    }
-
 }

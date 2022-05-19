@@ -31,7 +31,7 @@ public class JobController {
         return jobService.getJob(ID);
     }
 
-    // Maak een nieuwe job aan -met web interface TODO
+    // Maak een nieuwe job aan -met web interface
     @GetMapping("/Job/New")
     public String createJob(Model model) {
         Job newJob = new Job();
