@@ -78,5 +78,17 @@ public class JobController {
         return "Job/DeleteJobFinished";
     }
 
+    @GetMapping("/Job/FinishedJobs")
+    public String getAllActiveJobs(Model model) {
+        List<Job> jobList = jobService.getAllFinishedJobs();
+        model.addAttribute("jobs", jobList);
+        return "Job/FinishedJobs"; // TODO
+    }
 
+    @GetMapping("/Job/Finished/{ID}/Conclude")
+    private String concludeJob(@PathVariable long ID, Model model) {
+        Job job = jobService.getJob(ID);
+        model.addAttribute("job", job);
+        return "ConcludeJob";
+    }
 }

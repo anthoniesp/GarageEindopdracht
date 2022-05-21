@@ -27,6 +27,14 @@ public class JobService {
         return jobList;
     }
 
+    public List<Job> getAllFinishedJobs() {
+        List<Job> jobList;
+        int status = 2; // Status 1 staat voor active
+        jobList = jobRepository.findByStatus(status);
+        return jobList;
+    }
+
+
     public Job getJob(long ID) {
         return jobRepository.findById(ID).orElse( null);
     }

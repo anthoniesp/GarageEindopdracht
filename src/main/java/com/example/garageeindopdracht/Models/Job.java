@@ -85,6 +85,16 @@ public class Job {
         return partsPricesListOptional;
     }
 
+    public Optional<List<Double>> getPartPricesListDouble() {
+        List<Double> partPricesListDouble = new ArrayList<>();
+        for (String partPrice : getPartsPricesList().get()) {
+            Double partPriceDouble = Double.parseDouble(partPrice);
+            partPricesListDouble.add(partPriceDouble);
+        }
+        Optional<List<Double>> partPricesListOptional = Optional.of(partPricesListDouble);
+        return partPricesListOptional;
+    }
+
     public List<Part> getAllParts() {
         List<Part> listOfParts = new ArrayList<>();
         if (getPartsList().isPresent() && getPartsPricesList().isPresent()) {
@@ -122,6 +132,8 @@ public class Job {
                 return "Active";
             case 2:
                 return "Finished";
+            case 3:
+                return "Concluded";
             default:
                 return "Status not found";
         }
