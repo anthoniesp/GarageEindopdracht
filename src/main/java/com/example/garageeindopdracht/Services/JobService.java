@@ -58,11 +58,15 @@ public class JobService {
                         job -> { //Voor een functie body { } uit en ik verwacht een author terug.
                             //setters van de author die is opgeslagen, die nu de waarde krijgen van de BODY die we in het PUT hadden geplaatst.
                             job.setJobID(editedJob.getJobID());
-                            job.setCarLicensePlate(editedJob.getCarLicensePlate());
-                            job.setCustomerName(editedJob.getCustomerName());
-                            job.setCustomerPhoneNumber(editedJob.getCustomerPhoneNumber());
-                            job.setJobDescription(editedJob.getJobDescription());
+                            if (editedJob.getCarLicensePlate() != null) {
+                                job.setCarLicensePlate(editedJob.getCarLicensePlate());
+                                job.setCustomerName(editedJob.getCustomerName());
+                                job.setCustomerPhoneNumber(editedJob.getCustomerPhoneNumber());
+                                job.setJobDescription(editedJob.getJobDescription());
+                            }
                             job.setStatus(editedJob.getStatus());
+                            job.setPartsUsedForRepair(editedJob.getPartsUsedForRepair());
+                            job.setPartsUsedForRepairPrices(editedJob.getPartsUsedForRepairPrices());
                             //Gegevens veranderd? dan slaan we hem op.
                             return jobRepository.save(job);
                         });

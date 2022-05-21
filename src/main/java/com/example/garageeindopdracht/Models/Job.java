@@ -6,6 +6,7 @@ import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 @Entity
 @Table(name = "jobsTable")
@@ -43,35 +44,61 @@ public class Job {
 
     // Voegt een part toe aan de String
     public void addPartToString(String newPart) {
-        partsUsedForRepair = partsUsedForRepair + ";" + newPart;
+        if (partsUsedForRepair == null) {
+            partsUsedForRepair = newPart;
+        } else {
+            partsUsedForRepair = partsUsedForRepair + ";" + newPart;
+        }
     }
 
-    // TODO
-    // Voegt een prijs toe aan de String
     public void addPartPriceToString(String newPartPrice) {
-        partsUsedForRepairPrices = partsUsedForRepairPrices + ";" + newPartPrice;
+        if (partsUsedForRepairPrices == null) {
+            partsUsedForRepairPrices = newPartPrice;
+        } else {
+            partsUsedForRepairPrices = partsUsedForRepairPrices + ";" + newPartPrice;
+        }
     }
 
-    // TODO
-    // Maakt een list aan van parts aan van de twee Strings
-    public List<String> getPartsList() {
-        List<String> partsList = null;
-        String[] partsInArray = partsUsedForRepair.split(";");
-        for (String part : partsInArray) {
-            partsList.add(part);
+
+    public Optional<List<String>> getPartsList() {
+        List<String> partsList = new ArrayList<>();
+        if (partsUsedForRepair != null) {
+            String[] partsInArray = partsUsedForRepair.split(";");
+            for (String part : partsInArray) {
+                partsList.add(part);
+            }
         }
-        return partsList;
+        Optional<List<String>> partsListOptional = Optional.ofNullable(partsList);
+        return partsListOptional;
     }
 
-    // TODO
-    // Zet de string prijslijst om naar een Arraylist zodat deze uitgelezen kan worden in de getPartsList() methode
-    public List<String> getPartPricesList() {
-        List<String> partsPricesList = null;
-        String[] partsPricesInArray = partsUsedForRepairPrices.split(";");
-        for (String partPrice : partsPricesInArray) {
-            partsPricesList.add(partPrice);
+
+    public Optional<List<String>> getPartsPricesList() {
+        List<String> partsPricesList = new ArrayList<>();
+        if (partsUsedForRepairPrices != null) {
+            String[] partsPricesInArray = partsUsedForRepairPrices.split(";");
+            for (String partPrice : partsPricesInArray) {
+                partsPricesList.add(partPrice);
+            }
         }
-        return partsPricesList;
+        Optional<List<String>> partsPricesListOptional = Optional.ofNullable(partsPricesList);
+        return partsPricesListOptional;
+    }
+
+    public List<Part> getAllParts() {
+        List<Part> listOfParts = new ArrayList<>();
+        if (getPartsList().isPresent() && getPartsPricesList().isPresent()) {
+            List<String> partList = getPartsList().get();
+            List<String> partPricesList = getPartsPricesList().get();
+            int index = 0;
+            for (String part : partList) {
+                Part newPart = new Part(partList.get(index), partPricesList.get(index));
+                index++;
+                listOfParts.add(newPart);
+            }
+        }
+
+        return listOfParts;
     }
 
 
@@ -151,6 +178,14 @@ public class Job {
 
     public void setStatus(int status) {
         this.status = status;
+    }
+
+    public void setPartsUsedForRepair(String partsUsedForRepair) {
+        this.partsUsedForRepair = partsUsedForRepair;
+    }
+
+    public void setPartsUsedForRepairPrices(String partsUsedForRepairPrices) {
+        this.partsUsedForRepairPrices = partsUsedForRepairPrices;
     }
 }
 
