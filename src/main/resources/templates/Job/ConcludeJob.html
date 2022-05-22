@@ -10,9 +10,57 @@
             integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
             crossorigin="anonymous"
     >
-  
+
 </head>
 <body>
+
+    <div class="container">
+        <h2> Conclude job </h2>
+        <hr/>
+        <form th:action="@{/Job/Finished/{ID}/Conclude(ID=${job.getJobID()})}" th:object="${job}" method="POST">
+
+            <table class="table table-bordered table-striped" id="jobs">
+
+                <thead>
+                <tr>
+                    <th> ID </th>
+                    <th> License plate </th>
+                    <th> Customer name </th>
+                    <th> Customer phone number </th>
+                    <th> Job description </th>
+                    <th> Total repair cost </th>
+                </tr>
+                </thead>
+
+                <tbody>
+                <tr>
+                    <td th:text = "${job.getJobID()}"> </td>
+                    <td th:text = "${job.getCarLicensePlate()}"> </td>
+                    <td th:text = "${job.getCustomerName()}"> </td>
+                    <td th:text = "${job.getCustomerPhoneNumber()}"> </td>
+                    <td th:text = "${job.getJobDescription()}"> </td>
+                    <td th:text = "${job.getTotalRepairCost()}"> </td>
+                </tr>
+                </tbody>
+
+            </table>
+
+
+
+            <br>
+
+            <form th:action="@{/Job/{ID}/Concluded(ID=${job.getJobID()})}" method="POST">
+                <input type="checkbox" required>
+                <label> I have contacted the customer about their car and want to conclude this job </label>
+                <br>
+
+                <input class="btn btn-success" type="submit" value="Conclude">
+            </form>
+
+        </form>
+        <hr/>
+        <a th:href="@{/Job/FinishedJobs}"> Back to finished jobs list </a>
+    </div>
 
 </body>
 </html>

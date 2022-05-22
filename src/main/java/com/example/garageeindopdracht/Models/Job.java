@@ -45,17 +45,17 @@ public class Job {
     // Voegt een part toe aan de String
     public void addPartToString(String newPart) {
         if (partsUsedForRepair == null) {
-            partsUsedForRepair = newPart;
+            partsUsedForRepair = newPart + ";";
         } else {
-            partsUsedForRepair = partsUsedForRepair + ";" + newPart;
+            partsUsedForRepair = partsUsedForRepair + newPart + ";";
         }
     }
 
     public void addPartPriceToString(String newPartPrice) {
         if (partsUsedForRepairPrices == null) {
-            partsUsedForRepairPrices = newPartPrice;
+            partsUsedForRepairPrices = newPartPrice + ";";
         } else {
-            partsUsedForRepairPrices = partsUsedForRepairPrices + ";" + newPartPrice;
+            partsUsedForRepairPrices = partsUsedForRepairPrices + newPartPrice + ";";
         }
     }
 
@@ -88,11 +88,26 @@ public class Job {
     public Optional<List<Double>> getPartPricesListDouble() {
         List<Double> partPricesListDouble = new ArrayList<>();
         for (String partPrice : getPartsPricesList().get()) {
+            partPrice = partPrice.replaceAll(",",".");
             Double partPriceDouble = Double.parseDouble(partPrice);
             partPricesListDouble.add(partPriceDouble);
         }
         Optional<List<Double>> partPricesListOptional = Optional.of(partPricesListDouble);
         return partPricesListOptional;
+    }
+
+    public double getTotalRepairCost() {
+        double totalRepairCost = 0.00;
+        int counter = 0;
+        if (getPartPricesListDouble().isPresent()) {
+            List<Double> partPricesList = getPartPricesListDouble().get();
+            for (double partPrice : getPartPricesListDouble().get()) {
+
+                totalRepairCost = totalRepairCost + partPricesList.get(counter);
+                counter++;
+            }
+        }
+        return totalRepairCost;
     }
 
     public List<Part> getAllParts() {
@@ -183,10 +198,6 @@ public class Job {
         this.jobDescription = jobDescription;
     }
 
-    public String createDateAsString() {
-        Date date = new Date();
-        return String.valueOf(date.getDate()) + String.valueOf(date.getMonth() + String.valueOf(date.getYear()));
-    }
 
     public void setStatus(int status) {
         this.status = status;

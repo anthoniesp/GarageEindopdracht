@@ -13,31 +13,31 @@
 
 </head>
 <body>
-<table class="table table-bordered table-striped" id="jobs">
+    <div class="container">
+        <table class="table table-bordered table-striped" id="jobs">
 
-    <thead>
-    <tr>
-        <th> ID </th>
-        <th> License plate </th>
-        <th> Job description </th>
-        <th> Status </th>
-        <th> Actions </th>
-    </tr>
-    </thead>
+            <thead>
+            <tr>
+                <th> ID </th>
+                <th> License plate </th>
+                <th> Job description </th>
+                <th> Actions </th>
+            </tr>
+            </thead>
 
-    <tbody>
-    <tr th:each = "job: ${jobs}">
-        <td th:text = "${job.getJobID()}"> </td>
-        <td th:text = "${job.getCarLicensePlate()}"> </td>
-        <td th:text = "${job.getJobDescription()}"> </td>
-        <td th:text = "${job.getStatusToString()}"> </td>
+            <tbody>
+            <tr th:each = "job: ${jobs}">
+                <td th:text = "${job.getJobID()}"> </td>
+                <td th:text = "${job.getCarLicensePlate()}"> </td>
+                <td th:text = "${job.getJobDescription()}"> </td>
 
-        <td>
-            <a th:href="@{/Job/Finished/{ID}/Conclude(ID=${job.getJobID()})}" class="btn btn-success mb-2"> Conclude </a>
-        </td>
-    </tr>
-    </tbody>
+                <td>
+                    <a th:href="@{/Job/Finished/{ID}/Conclude(ID=${job.getJobID()})}" class="btn btn-success mb-2"> Conclude </a>
+                </td>
+            </tr>
+            </tbody>
 
-</table>
+        </table>
+    </div>
 </body>
 </html>

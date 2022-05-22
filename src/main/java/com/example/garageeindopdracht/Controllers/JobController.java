@@ -82,13 +82,22 @@ public class JobController {
     public String getAllActiveJobs(Model model) {
         List<Job> jobList = jobService.getAllFinishedJobs();
         model.addAttribute("jobs", jobList);
-        return "Job/FinishedJobs"; // TODO
+        return "Job/FinishedJobs";
     }
 
     @GetMapping("/Job/Finished/{ID}/Conclude")
     private String concludeJob(@PathVariable long ID, Model model) {
         Job job = jobService.getJob(ID);
         model.addAttribute("job", job);
-        return "ConcludeJob";
+        return "Job/ConcludeJob";
+    }
+
+    @GetMapping("/Job/{ID}/Concluded")
+    private String concludeJobFinished(@ModelAttribute("Job") Job concludedJob, @PathVariable long ID, Model model) {
+        Job job = jobService.getJob(ID);
+        job.setStatus(3);
+        jobService.editJob(job);
+        model.addAttribute("job", job);
+        return "Job/ConcludeJobFinished";
     }
 }

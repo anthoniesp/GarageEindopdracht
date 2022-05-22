@@ -73,8 +73,13 @@ public class JobService {
                                 job.setJobDescription(editedJob.getJobDescription());
                             }
                             job.setStatus(editedJob.getStatus());
-                            job.setPartsUsedForRepair(editedJob.getPartsUsedForRepair());
-                            job.setPartsUsedForRepairPrices(editedJob.getPartsUsedForRepairPrices());
+                            if (job.getPartsUsedForRepair() != null) {
+                                job.setPartsUsedForRepair(job.getPartsUsedForRepair() + editedJob.getPartsUsedForRepair());
+                                job.setPartsUsedForRepairPrices(job.getPartsUsedForRepairPrices() + editedJob.getPartsUsedForRepairPrices());
+                            } else {
+                                job.setPartsUsedForRepair(editedJob.getPartsUsedForRepair());
+                                job.setPartsUsedForRepairPrices(editedJob.getPartsUsedForRepairPrices());
+                            }
                             //Gegevens veranderd? dan slaan we hem op.
                             return jobRepository.save(job);
                         });
