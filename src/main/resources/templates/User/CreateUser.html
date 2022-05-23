@@ -16,7 +16,7 @@
     <div class="container">
         <h2> Create a new user </h2>
         <hr/>
-        <form th:action="@{/SaveUser}" th:object="${User}" method="POST">
+        <form th:action="@{/User/SaveUser}" th:object="${User}" method="POST">
 
             <input type="text" th:field="*{userName}" placeholder="Enter username" class="form-control col-4 mb-4" required/>
             <br>

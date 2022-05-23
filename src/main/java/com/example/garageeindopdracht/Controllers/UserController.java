@@ -36,7 +36,7 @@ public class UserController {
     }
 
     // Sla aangemaakte user op in de database
-    @PostMapping("/SaveUser")
+    @PostMapping("/User/SaveUser")
     public String saveUser(@ModelAttribute("User") User newUser) {
         userService.newUser(newUser);
         return "User/SaveUser";

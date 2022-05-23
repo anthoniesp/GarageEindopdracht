@@ -29,11 +29,11 @@ public class JobController {
         return "Job/Jobs"; // "Jobs" verwijst naar Jobs.html
     }
 
-    // Vraag een specifieke job op -zonder webinterface
-    @GetMapping("/Job/{ID}")
-    private Job getJob(@PathVariable("ID") long ID) {
-        return jobService.getJob(ID);
-    }
+//    // Vraag een specifieke job op -zonder webinterface
+//    @GetMapping("/Job/{ID}")
+//    private Job getJob(@PathVariable("ID") long ID) {
+//        return jobService.getJob(ID);
+//    }
 
     // Maak een nieuwe job aan -met web interface
     @GetMapping("/Job/New")

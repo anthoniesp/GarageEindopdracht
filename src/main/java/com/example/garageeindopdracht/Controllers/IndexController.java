@@ -9,17 +9,17 @@ import org.springframework.web.bind.annotation.PathVariable;
 public class IndexController {
 
     @GetMapping("/Admin")
-    private String getAdminIndex() {
+    public String getAdminIndex() {
         return "AdminIndex";
     }
 
     @GetMapping("/Administration")
-    private String getAdministrativeWorkerIndex() {
+    public String getAdministrativeWorkerIndex() {
         return "AdministrativeWorkerIndex";
     }
 
     @GetMapping("/Mechanic")
-    private String getMechanicIndex() {
+    public String getMechanicIndex() {
         return "MechanicIndex";
     }
 }
