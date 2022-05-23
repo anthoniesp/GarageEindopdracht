@@ -126,6 +126,23 @@ public class Job {
         return listOfParts;
     }
 
+    public String getAllPartsAndPricesAsString() {
+        String allPartsAndPrices = "Part                    Price" + "\n" +
+                                   "------------------------------" + "\n" + "\n";
+        List<Part> allPartsAndPricesAsList = getAllParts();
+        for (Part partAndPrice : allPartsAndPricesAsList) {
+            int amountOfWhitespaces = 24 - partAndPrice.getPartName().length();
+            String whiteSpaces = "";
+            for (int space = 1; space <= amountOfWhitespaces; space++) {
+                whiteSpaces = whiteSpaces + " ";
+            }
+            allPartsAndPrices = allPartsAndPrices + partAndPrice.getPartName() + whiteSpaces + partAndPrice.getPartPrice() + "\n";
+        }
+        allPartsAndPrices = allPartsAndPrices + "\n" +
+                "Total:                  " + getTotalRepairCost();
+        return allPartsAndPrices;
+    }
+
 
 
 

@@ -2,11 +2,15 @@ package com.example.garageeindopdracht.Services;
 
 import com.example.garageeindopdracht.Models.Job;
 import com.example.garageeindopdracht.Repositories.JobRepository;
+import com.itextpdf.text.*;
+import com.itextpdf.text.pdf.PdfWriter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class JobService {
@@ -29,7 +33,14 @@ public class JobService {
 
     public List<Job> getAllFinishedJobs() {
         List<Job> jobList;
-        int status = 2; // Status 1 staat voor active
+        int status = 2; // Status 2 staat voor finished
+        jobList = jobRepository.findByStatus(status);
+        return jobList;
+    }
+
+    public List<Job> getAllConcludedJobs() {
+        List<Job> jobList;
+        int status = 3; // Status 3 staat voor concluded
         jobList = jobRepository.findByStatus(status);
         return jobList;
     }
@@ -73,7 +84,7 @@ public class JobService {
                                 job.setJobDescription(editedJob.getJobDescription());
                             }
                             job.setStatus(editedJob.getStatus());
-                            if (job.getPartsUsedForRepair() != null) {
+                            if (job.getPartsUsedForRepair() != null && job.getPartsUsedForRepair() != editedJob.getPartsUsedForRepair()) {
                                 job.setPartsUsedForRepair(job.getPartsUsedForRepair() + editedJob.getPartsUsedForRepair());
                                 job.setPartsUsedForRepairPrices(job.getPartsUsedForRepairPrices() + editedJob.getPartsUsedForRepairPrices());
                             } else {
@@ -91,5 +102,33 @@ public class JobService {
         if (deletingJob != null) {
             jobRepository.delete(deletingJob);
         }
+    }
+
+    public void getReceipt(HttpServletResponse response, Job job) throws IOException, DocumentException {
+        Document document = new Document(PageSize.A4);
+        PdfWriter.getInstance(document, response.getOutputStream());
+
+        document.open();
+        Font fontTitle = FontFactory.getFont(FontFactory.HELVETICA_BOLD);
+        fontTitle.setSize(18);
+
+        Paragraph title = new Paragraph("Autogarage de Vastloper", fontTitle);
+        title.setAlignment(Paragraph.ALIGN_CENTER);
+
+        Paragraph whiteLines = new Paragraph("\n" + "\n", fontTitle);
+
+        Font fontParagraph = FontFactory.getFont(FontFactory.HELVETICA);
+        fontParagraph.setSize(12);
+
+        Paragraph paragraph = new Paragraph(
+                "License plate: " + job.getCarLicensePlate() + "\n" +
+                "Name: " + job.getCustomerName() + "\n" + "\n" + "\n"
+                + job.getAllPartsAndPricesAsString());
+        paragraph.setAlignment(Paragraph.ALIGN_LEFT);
+
+        document.add(title);
+        document.add(whiteLines);
+        document.add(paragraph);
+        document.close();
     }
 }

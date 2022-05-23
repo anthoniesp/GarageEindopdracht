@@ -2,13 +2,17 @@ package com.example.garageeindopdracht.Controllers;
 
 import com.example.garageeindopdracht.Models.Job;
 import com.example.garageeindopdracht.Services.JobService;
+import com.itextpdf.text.DocumentException;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 @Controller
@@ -79,10 +83,17 @@ public class JobController {
     }
 
     @GetMapping("/Job/FinishedJobs")
-    public String getAllActiveJobs(Model model) {
+    public String getAllFinishedJobs(Model model) {
         List<Job> jobList = jobService.getAllFinishedJobs();
         model.addAttribute("jobs", jobList);
         return "Job/FinishedJobs";
+    }
+
+    @GetMapping("/Job/ConcludedJobs")
+    public String getAllConcludedJobs(Model model) {
+        List<Job> jobList = jobService.getAllConcludedJobs();
+        model.addAttribute("jobs", jobList);
+        return "Job/ConcludedJobs";
     }
 
     @GetMapping("/Job/Finished/{ID}/Conclude")
@@ -99,5 +110,19 @@ public class JobController {
         jobService.editJob(job);
         model.addAttribute("job", job);
         return "Job/ConcludeJobFinished";
+    }
+
+    @GetMapping("/Job/{ID}/Concluded/DownloadReceipt")
+    public void generatePDF(@PathVariable long ID, HttpServletResponse response) throws IOException, DocumentException {
+        Job job = jobService.getJob(ID);
+        response.setContentType("application/pdf");
+        DateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd:hh:mm:ss");
+        String currentDateTime = dateFormatter.format(new Date());
+
+        String headerKey = "Content-Disposition";
+        String headerValue = "attachment; filename=pdf_" + currentDateTime + ".pdf";
+        response.setHeader(headerKey, headerValue);
+
+        this.jobService.getReceipt(response, job);
     }
 }

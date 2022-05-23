@@ -49,12 +49,14 @@
 
             <br>
 
-            <form th:action="@{/Job/{ID}/Concluded(ID=${job.getJobID()})}" method="POST">
+            <form>
                 <input type="checkbox" required>
                 <label> I have contacted the customer about their car and want to conclude this job </label>
-                <br>
+                <br> <br>
 
-                <input class="btn btn-success" type="submit" value="Conclude">
+                <a th:href="@{/Job/{ID}/Concluded(ID=${job.getJobID()})}">
+                <input class="btn btn-success" type="button" value="Conclude">
+                </a>
             </form>
 
         </form>

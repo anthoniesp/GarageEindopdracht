@@ -13,10 +13,11 @@
 
 </head>
 <body>
+
     <div class="container">
 
         <h3>
-            Finished job List
+            Concluded job list
         </h3>
         <hr/>
 
@@ -26,7 +27,10 @@
             <tr>
                 <th> ID </th>
                 <th> License plate </th>
+                <th> Customer name </th>
+                <th> Customer phone number </th>
                 <th> Job description </th>
+                <th> Total repair cost </th>
                 <th> Action </th>
             </tr>
             </thead>
@@ -35,15 +39,19 @@
             <tr th:each = "job: ${jobs}">
                 <td th:text = "${job.getJobID()}"> </td>
                 <td th:text = "${job.getCarLicensePlate()}"> </td>
+                <td th:text = "${job.getCustomerName()}"> </td>
+                <td th:text = "${job.getCustomerPhoneNumber()}"> </td>
                 <td th:text = "${job.getJobDescription()}"> </td>
+                <td th:text = "${job.getTotalRepairCost()}"> </td>
 
                 <td>
-                    <a th:href="@{/Job/Finished/{ID}/Conclude(ID=${job.getJobID()})}" class="btn btn-success mb-2"> Conclude </a>
+                    <a th:href="@{/Job/{ID}/Concluded/DownloadReceipt(ID=${job.getJobID()})}" class="btn btn-success mb-2"> Download receipt </a>
                 </td>
             </tr>
             </tbody>
 
         </table>
     </div>
+
 </body>
 </html>

@@ -64,7 +64,7 @@
 
   <h4> Add part </h4>
 
-  <input type="text"  th:value="${part}" name="part" placeholder="Enter part name" class="form-control col-4 mb-4"/>
+  <input type="text"  th:maxlength="22" th:value="${part}" name="part" placeholder="Enter part name" class="form-control col-4 mb-4"/>
   <br>
 
   <input type="text"  th:value="${partPrice}" name="partPrice" placeholder="Enter part price" class="form-control col-4 mb-4"/>
