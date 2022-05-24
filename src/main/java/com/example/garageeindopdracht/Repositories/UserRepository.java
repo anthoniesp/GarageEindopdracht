@@ -14,7 +14,4 @@ public interface UserRepository extends JpaRepository<User, Long> {
         User findByUserName(String userName);
 
         Optional<List<User>> findByApplicationUserRole(ApplicationUserRole admin);
-
-
-//        org.springframework.security.core.userdetails.User findByUsername(String username);
 }
