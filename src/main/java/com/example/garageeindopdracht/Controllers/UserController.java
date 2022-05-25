@@ -60,7 +60,6 @@ public class UserController {
     @PostMapping("/User/{ID}")
     public String editUserFinished(@ModelAttribute("User") User editedUser, @PathVariable("ID") long ID) {
         editedUser.setUserID(ID);
-        // Onderstaande methode checkt of de user al bestaat, zo niet, dan maakt die een nieuwe aan
         userService.editUser(editedUser);
         return "User/EditUserFinished";
     }

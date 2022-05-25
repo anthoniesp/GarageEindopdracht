@@ -21,7 +21,7 @@ public class JobController {
     @Autowired
     JobService jobService;
 
-    // vraag een lijst met alle jobs op  ->  implementeert
+    // vraag een lijst met alle jobs op
     @GetMapping("/Jobs")
     public String getAllJobs(Model model) {
         List<Job> jobList = jobService.getAllJobs();
@@ -29,13 +29,8 @@ public class JobController {
         return "Job/Jobs"; // "Jobs" verwijst naar Jobs.html
     }
 
-//    // Vraag een specifieke job op -zonder webinterface
-//    @GetMapping("/Job/{ID}")
-//    private Job getJob(@PathVariable("ID") long ID) {
-//        return jobService.getJob(ID);
-//    }
 
-    // Maak een nieuwe job aan -met web interface
+    // Maak een nieuwe job aan
     @GetMapping("/Job/New")
     public String createJob(Model model) {
         Job newJob = new Job();
@@ -43,7 +38,7 @@ public class JobController {
         return "Job/CreateJob";
     }
 
-    // Get methode voor de web-interface van de Edit methode
+    // Pas een job aan
     @GetMapping("/Job/{ID}/Edit")
     public String editJob(@PathVariable Long ID, Model model) {
         Job existingJob = jobService.getJob(ID);
@@ -58,7 +53,7 @@ public class JobController {
         return "Job/SaveJob";
     }
 
-    // Pas een bestaande job aan
+    // Doorvoer methode van het aanpassen van een job
     @PostMapping("/Job/{ID}")
     public String editJobFinished(@ModelAttribute("Job") Job editedJob, @PathVariable("ID") long ID) {
         editedJob.setJobID(ID);
@@ -75,13 +70,14 @@ public class JobController {
         return "Job/DeleteJob";
     }
 
-    // Verwijder een job
+    // Doorvoer methode voor het verwijderen van een job
     @PostMapping("/Job/{ID}/Deleted")
     private String deleteJobFinished(@PathVariable long ID){
         jobService.deleteJob(ID);
         return "Job/DeleteJobFinished";
     }
 
+    // Vraag een lijst op met afgeronde jobs
     @GetMapping("/Job/FinishedJobs")
     public String getAllFinishedJobs(Model model) {
         List<Job> jobList = jobService.getAllFinishedJobs();
